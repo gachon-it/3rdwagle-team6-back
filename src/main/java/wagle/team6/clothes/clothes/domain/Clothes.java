@@ -1,5 +1,6 @@
 package wagle.team6.clothes.clothes.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -30,10 +31,12 @@ public class Clothes {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "mem_id")
+    @JsonIgnore
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cate_id")
+    @JsonIgnore
     private Category category;
 
     @OneToOne(mappedBy = "clothes", cascade = CascadeType.ALL, orphanRemoval = true)

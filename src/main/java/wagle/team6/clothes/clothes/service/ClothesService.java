@@ -1,6 +1,7 @@
 package wagle.team6.clothes.clothes.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,9 +14,9 @@ import wagle.team6.clothes.clothes.repository.ClothesRepository;
 import wagle.team6.clothes.clothes.repository.ImageRepository;
 import wagle.team6.clothes.member.domain.Member;
 import wagle.team6.clothes.member.repository.MemberRepository;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -57,6 +58,26 @@ public class ClothesService {
 
         imageRepository.save(image);
         return clothesRepository.save(clothes);
+    }
+
+    @Transactional
+    public List<Clothes> findUpperClothes(Long memberId,Long categoryKey) {
+
+        //1차, 2차 카테고리를 받아서 해당하는 카테고리 고유 id를 저장해야 함.
+        List<Clothes> clothes = clothesRepository.findClothesByMemberAndCategory(memberId,categoryKey);
+
+
+        return clothes;
+    }
+
+    @Transactional
+    public List<Clothes> findLowerClothes(Long memberId,Long key1,Long key2) {
+
+        //1차, 2차 카테고리를 받아서 해당하는 카테고리 고유 id를 저장해야 함.
+        List<Clothes> clothes = clothesRepository.findClothesByMemberAndCategoryKeys(memberId,key1,key2);
+
+
+        return clothes;
     }
 
 }
