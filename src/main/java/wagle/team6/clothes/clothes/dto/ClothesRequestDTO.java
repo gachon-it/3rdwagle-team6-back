@@ -1,10 +1,14 @@
 package wagle.team6.clothes.clothes.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import wagle.team6.clothes.clothes.domain.Clothes;
 
 import java.time.LocalDateTime;
 
+@Setter
 public class ClothesRequestDTO {
     @Getter
     public static class CreateClothesDTO {
