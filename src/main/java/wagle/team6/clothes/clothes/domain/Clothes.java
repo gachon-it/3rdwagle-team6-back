@@ -23,10 +23,10 @@ public class Clothes {
     private Long id;
 
     @Column(nullable = false)
-    private Long color;
+    private String color;
 
     @Column(nullable = false)
-    private Long location;
+    private String location;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -42,4 +42,18 @@ public class Clothes {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public void setMember(Member member) {
+        if(this.member != null)
+            member.getClothesList().remove(this);
+        this.member = member;
+        member.getClothesList().add(this);
+    }
+
+    public void setCategory(Category category) {
+        if(this.category != null)
+            category.getClothesList().remove(this);
+        this.category = category;
+        category.getClothesList().add(this);
+    }
 }
