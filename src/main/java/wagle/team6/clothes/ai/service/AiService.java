@@ -1,4 +1,11 @@
 package wagle.team6.clothes.ai.service;
 
-public class AiService {
+import wagle.team6.clothes.ai.dto.Request.ChattingRequest;
+
+public interface AiService {
+
+    /* 채팅 메서드 */
+    String chat(ChattingRequest chattingRequest);
+
+
 }
