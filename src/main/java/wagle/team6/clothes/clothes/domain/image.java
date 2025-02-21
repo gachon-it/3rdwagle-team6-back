@@ -4,9 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import wagle.team6.clothes.member.domain.Member;
 
 import java.time.LocalDateTime;
 
@@ -17,29 +14,21 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Clothes {
+public class image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private Long color;
+    @ManyToOne(fetch = FetchType.LAZY) // Clothes와 N:1 관계
+    @JoinColumn(name = "clothes_id", nullable = false)
+    private Clothes clothes;
 
-    @Column(nullable = false)
-    private Long location;
+    @Column(nullable = false, length = 255)
+    private String path; // 이미지 경로
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category category;
-
-    @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedDate
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 }
