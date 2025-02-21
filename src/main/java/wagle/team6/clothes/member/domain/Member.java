@@ -5,17 +5,32 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Getter
+@NoArgsConstructor // 기본 생성자 추가 (JPA 사용을 위해)
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     private Long id;
 
-    @Embedded
-    private Email email;
+    @Column
+    private String email;
 
-    @Embedded
-    private Password password;
+    @Column
+    private String password;
+
+    public Member(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public static Member registerMember(
+            String email, String password) {
+        return new Member(email, password);
+    }
+
 
 }
