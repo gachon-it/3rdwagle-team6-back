@@ -3,6 +3,8 @@ package wagle.team6.clothes.clothes.dto;
 import lombok.Getter;
 import wagle.team6.clothes.clothes.domain.Clothes;
 
+import java.time.LocalDateTime;
+
 public class ClothesRequestDTO {
     @Getter
     public static class CreateClothesDTO {
@@ -19,7 +21,8 @@ public class ClothesRequestDTO {
         return Clothes.builder()
                 .color(request.color)
                 .location(request.location)
-
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
                 .build();
     }
 
