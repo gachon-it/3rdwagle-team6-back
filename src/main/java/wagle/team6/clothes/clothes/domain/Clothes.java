@@ -39,6 +39,9 @@ public class Clothes {
     @JsonIgnore
     private Category category;
 
+    @OneToOne(mappedBy = "clothes", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Image image;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -58,5 +61,10 @@ public class Clothes {
             category.getClothesList().remove(this);
         this.category = category;
         category.getClothesList().add(this);
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+        image.setClothes(this); // 양방향 관계 설정
     }
 }
