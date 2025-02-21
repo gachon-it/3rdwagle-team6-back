@@ -44,5 +44,4 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     @Builder.Default
     private List<Clothes> clothesList = new ArrayList<>();
-
 }
