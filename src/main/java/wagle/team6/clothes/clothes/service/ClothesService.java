@@ -5,11 +5,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import wagle.team6.clothes.clothes.domain.Category;
 import wagle.team6.clothes.clothes.domain.Clothes;
+import wagle.team6.clothes.clothes.domain.Image;
 import wagle.team6.clothes.clothes.dto.ClothesRequestDTO;
 import wagle.team6.clothes.clothes.repository.CategoryRepository;
 import wagle.team6.clothes.clothes.repository.ClothesRepository;
+import wagle.team6.clothes.clothes.repository.ImageRepository;
 import wagle.team6.clothes.member.domain.Member;
 import wagle.team6.clothes.member.repository.MemberRepository;
+
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +22,7 @@ public class ClothesService {
     private final ClothesRepository clothesRepository;
     private final MemberRepository memberRepository;
     private final CategoryRepository categoryRepository;
+    private final ImageRepository imageRepository;
 
     @Transactional
     public Clothes createClothes(Long memberId, ClothesRequestDTO.CreateClothesDTO request) {
@@ -34,6 +39,20 @@ public class ClothesService {
         clothes.setMember(member);
         clothes.setCategory(category);
 
+        //이미지 저장하는 서비스 필요함
+        //images 아래에
+
+
+        //이미지 객체를 주는 로직
+        Image image = Image.builder()
+                //.path(이미지경로 변수!)
+                .createdAt(LocalDateTime.now())
+                .updatedAt(LocalDateTime.now())
+                .build();
+
+        clothes.setImage(image);
+
+        imageRepository.save(image);
         return clothesRepository.save(clothes);
     }
 

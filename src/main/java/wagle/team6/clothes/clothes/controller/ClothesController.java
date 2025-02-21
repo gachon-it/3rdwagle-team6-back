@@ -18,7 +18,7 @@ public class ClothesController {
     @Operation(summary = "이미지 업로드 API", description = "이미지를 업로드하는 API 입니다.")
     @PostMapping("/image")
     public ApiResponse<ClothesResponseDTO.CreateClothesResultDTO> updateMonthBudget(Long id, @RequestBody ClothesRequestDTO.CreateClothesDTO request) {
-        Clothes clothes = clothesService.createClothes(id, request);
+        Clothes clothes = clothesService.createClothes(1L, request);
         return ApiResponse.onSuccess(ClothesResponseDTO.toCreateClothesResultDTO(clothes));
     }
 }

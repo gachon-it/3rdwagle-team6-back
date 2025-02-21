@@ -14,13 +14,13 @@ import java.time.LocalDateTime;
 @DynamicInsert
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class image {
+public class Image {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY) // Clothes와 N:1 관계
-    @JoinColumn(name = "clothes_id", nullable = false)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "clothes_id", nullable = false, unique = true)
     private Clothes clothes;
 
     @Column(nullable = false, length = 255)
@@ -31,4 +31,8 @@ public class image {
 
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    public void setClothes(Clothes clothes) {
+        this.clothes = clothes;
+    }
 }
