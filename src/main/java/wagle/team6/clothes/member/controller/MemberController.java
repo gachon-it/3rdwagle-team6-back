@@ -14,7 +14,6 @@ import wagle.team6.clothes.member.service.MemberService;
 @RequestMapping("/member")
 public class MemberController {
 
-
     private final MemberService memberService;
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
@@ -30,5 +29,4 @@ public class MemberController {
     public Member login(@RequestBody MemberRequestDTO request) {
         return memberService.login(request);
     }
-
 }

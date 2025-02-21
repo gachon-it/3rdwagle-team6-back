@@ -1,5 +1,6 @@
 package wagle.team6.clothes.clothes.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -23,17 +24,19 @@ public class Clothes {
     private Long id;
 
     @Column(nullable = false)
-    private Long color;
+    private String color;
 
     @Column(nullable = false)
-    private Long location;
+    private String location;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "mem_id")
+    @JsonIgnore
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "cate_id")
+    @JsonIgnore
     private Category category;
 
     @CreatedDate
@@ -42,4 +45,18 @@ public class Clothes {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
+
+    public void setMember(Member member) {
+        if(this.member != null)
+            member.getClothesList().remove(this);
+        this.member = member;
+        member.getClothesList().add(this);
+    }
+
+    public void setCategory(Category category) {
+        if(this.category != null)
+            category.getClothesList().remove(this);
+        this.category = category;
+        category.getClothesList().add(this);
+    }
 }
